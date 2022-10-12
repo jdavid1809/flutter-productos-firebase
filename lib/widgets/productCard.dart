@@ -19,7 +19,7 @@ class ProductCard extends StatelessWidget {
         child: Stack(
           alignment: Alignment.bottomLeft,
           children: [
-            _BackgroundImage(url: product.picture.toString()),
+            _BackgroundImage(url: product.picture),
             _ProductDetails(title: product.name, subtitle: product.id!,),
             Positioned(
               top: 0,
@@ -157,9 +157,9 @@ class _ProductDetails extends StatelessWidget {
 
 class _BackgroundImage extends StatelessWidget {
 
-  final String url;
+  final String? url;
 
-  const _BackgroundImage({required this.url});
+  const _BackgroundImage({this.url});
 
   @override
   Widget build(BuildContext context) {
@@ -168,11 +168,13 @@ class _BackgroundImage extends StatelessWidget {
       child: Container(
         width: double.infinity,
         height: 400,
-        child: FadeInImage(
-          placeholder: AssetImage("assets/jar-loading.gif"),
-          image: NetworkImage(url),
-          fit: BoxFit.cover,
-        ),
+        child: url == null
+        ? Image(image: AssetImage("assets/no-image.jpg"),fit: BoxFit.cover,)
+        : FadeInImage(
+            placeholder: AssetImage("assets/jar-loading.gif"),
+            image: NetworkImage(url!),
+            fit: BoxFit.cover,
+          ),
       ),
     );
   }
