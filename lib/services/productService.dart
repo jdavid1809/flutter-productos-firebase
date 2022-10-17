@@ -74,6 +74,17 @@ class ProductService extends ChangeNotifier{
 
     return product.id!;
   }
+  
+  Future<String> createProduct(Product product)async{
+    final url = Uri.https(_baseUrl, "products.json");
+    final resp = await http.post(url, body: product.toJson());
+    final decodedData = json.decode(resp.body);
+
+    product.id = decodedData['name'];
+    this.products.add(product);
+
+    return "";
+  }
 
 }
 
