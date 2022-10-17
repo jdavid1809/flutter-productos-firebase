@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:productosapp/ui/inputDecorations.dart';
 import 'package:productosapp/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProductScreen extends StatelessWidget {
    
@@ -54,7 +55,15 @@ class _productScreenBody extends StatelessWidget {
                   top: 60,
                   right: 20,
                   child: IconButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      final picker = new ImagePicker();
+                      final XFile? pickedFile = await picker.pickImage(source: ImageSource.camera);
+                      if (pickedFile == null){
+                        print("No se encintro imagen");
+                        return;
+                      }
+                      print("Tenemos imagen en ${pickedFile.path}");
+                    },
                     icon: Icon(Icons.camera_alt_outlined, size: 40, color: Colors.white,),
                   ),
                 ),
