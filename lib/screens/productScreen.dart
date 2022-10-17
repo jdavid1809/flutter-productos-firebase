@@ -62,10 +62,8 @@ class _productScreenBody extends StatelessWidget {
                         imageQuality: 100,
                         );
                       if (pickedFile == null){
-                        print("No se encintro imagen");
                         return;
                       }
-                      print("Tenemos imagen en ${pickedFile.path}");
                       productService.updateSelectedProductImage(pickedFile.path);
                     },
                     icon: Icon(Icons.camera_alt_outlined, size: 40, color: Colors.white,),
@@ -82,9 +80,15 @@ class _productScreenBody extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.save_outlined),
-        onPressed: (){
+        child: productService.isSaving
+        ? CircularProgressIndicator( color: Colors.white,)
+        : Icon(Icons.save_outlined),
+        onPressed: productService.isSaving
+          ? null
+          :()async{
           if(!productForm.isValidForm()) return;
+          final String? imageUrl = await productService.uploadImage();
+          if(imageUrl != null) productForm.product.picture = imageUrl;
           productService.saveOrCreateProduct(productForm.product);
         },
       ),
