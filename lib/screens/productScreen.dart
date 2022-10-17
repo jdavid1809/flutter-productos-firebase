@@ -57,12 +57,16 @@ class _productScreenBody extends StatelessWidget {
                   child: IconButton(
                     onPressed: () async {
                       final picker = new ImagePicker();
-                      final XFile? pickedFile = await picker.pickImage(source: ImageSource.camera);
+                      final XFile? pickedFile = await picker.pickImage(
+                        source: ImageSource.camera,
+                        imageQuality: 100,
+                        );
                       if (pickedFile == null){
                         print("No se encintro imagen");
                         return;
                       }
                       print("Tenemos imagen en ${pickedFile.path}");
+                      productService.updateSelectedProductImage(pickedFile.path);
                     },
                     icon: Icon(Icons.camera_alt_outlined, size: 40, color: Colors.white,),
                   ),
