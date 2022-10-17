@@ -53,6 +53,7 @@ class _ProductScreenBody extends StatelessWidget {
                   top: 60,
                   right: 20,
                   child: IconButton(
+                    icon: const Icon(Icons.camera_alt_outlined, size: 40, color: Colors.white,),
                     onPressed: () async {
                       final picker = ImagePicker();
                       final XFile? pickedFile = await picker.pickImage(
@@ -65,7 +66,6 @@ class _ProductScreenBody extends StatelessWidget {
                       }
                       productService.updateSelectedProductImage(pickedFile.path);
                     },
-                    icon: Icon(Icons.camera_alt_outlined, size: 40, color: Colors.white,),
                   ),
                 ),
               ],
@@ -83,6 +83,7 @@ class _ProductScreenBody extends StatelessWidget {
           ? null
           :()async{
           if(!productForm.isValidForm()) return;
+          
           final String? imageUrl = await productService.uploadImage();
           if(imageUrl != null) productForm.product.picture = imageUrl;
           await productService.saveOrCreateProduct(productForm.product);

@@ -96,6 +96,10 @@ class ProductService extends ChangeNotifier{
     notifyListeners();
   }
 
+  void deleteSelectProduct(){
+    
+  }
+
   Future<String?> uploadImage()async{
     if(newPictureFile == null) return null;
 
