@@ -15,18 +15,18 @@ class LoginScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 250,
               ),
               CardContainer(
                 child: Column(
                   children: [
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Text(
                       "Login",
                       style: Theme.of(context).textTheme.headline4,
                     ),
-                    SizedBox(height:30),
+                    const SizedBox(height:30),
                     ChangeNotifierProvider(
                       create: (_) => LoginFormProvider(),
                       child: _LoginForm(),
@@ -34,8 +34,8 @@ class LoginScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 50,),
-              Text("Crear una nueva cuenta")
+              const SizedBox(height: 50,),
+              const Text("Crear una nueva cuenta")
             ],
           ),  
         )
@@ -68,13 +68,13 @@ class _LoginForm extends StatelessWidget {
               onChanged: (value) => loginForm.email = value,
               validator: (value) {
                 String pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-                RegExp regExp  = new RegExp(pattern);
+                RegExp regExp  = RegExp(pattern);
                 return regExp.hasMatch(value ?? "")
                   ? null
                   :"El valor ingresado no es un correo";
               },
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             TextFormField(
               autocorrect: false,
               obscureText: true,
@@ -91,33 +91,33 @@ class _LoginForm extends StatelessWidget {
                   : "La contraseña debe de ser de 6 caracteres";
               },
             ),
-            SizedBox(height: 30,),
+            const SizedBox(height: 30,),
             MaterialButton(
                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                disabledColor: Colors.grey,
                elevation: 0,
                color: Colors.deepPurple,
-               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 80, vertical: 15),
-                child: Text(
-                  loginForm.isLoading
-                    ? "Espere"
-                    : "Ingresar",
-                  style: TextStyle(color: Colors.white),
-                ),
-               ),
               onPressed: loginForm.isLoading ? null :  () async {
                 FocusScope.of(context).unfocus();
                 if(!loginForm.isValidForm()) return;
 
                 loginForm.isLoading = true;
 
-                await Future.delayed(Duration(seconds: 2));
+                await Future.delayed(const Duration(seconds: 2));
 
                 loginForm.isLoading = false;
 
                 Navigator.pushNamed(context, "home");
               },
+               child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 15),
+                child: Text(
+                  loginForm.isLoading
+                    ? "Espere"
+                    : "Ingresar",
+                  style: const TextStyle(color: Colors.white),
+                ),
+               ),
             ),
           ],
         )

@@ -15,7 +15,7 @@ if(productsService.isLoading) return LoadingScreen();
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Products"),
+        title: const Text("Products"),
       ),
       body: ListView.builder(
         itemCount: productsService.products.length,
@@ -28,9 +28,9 @@ if(productsService.isLoading) return LoadingScreen();
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         onPressed: (){
-          productsService.selectedProduct = new Product(
+          productsService.selectedProduct = Product(
             available: true,
              name: "",
               price: 0

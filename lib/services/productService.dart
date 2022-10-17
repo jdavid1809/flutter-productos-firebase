@@ -21,7 +21,7 @@ class ProductService extends ChangeNotifier{
 
   Future <List<Product>>/*Esto estaria de mas*/ loadProducts() async{
       
-    bool isLoading = true;
+    isLoading = true;
     notifyListeners();
 
     final url = Uri.https(_baseUrl, "products.json");
@@ -32,14 +32,14 @@ class ProductService extends ChangeNotifier{
     productsMap.forEach((key, value) {
       final temoProduct = Product.fromMap(value);
       temoProduct.id = key;
-      this.products.add(temoProduct);
+      products.add(temoProduct);
     });
 
 
-    this.isLoading = false;
+    isLoading = false;
     notifyListeners();
 
-    return this.products;//Esto estaria de mas
+    return products;//Esto estaria de mas
 
   }
 
@@ -47,9 +47,9 @@ class ProductService extends ChangeNotifier{
     isSaving= true;
     notifyListeners();
     if(product.id == null){
-      
+      await createProduct(product);
     }else{
-      await this.updateProduct(product);
+      await updateProduct(product);
     }
     isSaving = false;
     notifyListeners();
@@ -62,8 +62,8 @@ class ProductService extends ChangeNotifier{
 
     //Forma del curso
 
-    final index = this.products.indexWhere((element) => element.id == product.id);
-    this.products[index] = product;
+    final index = products.indexWhere((element) => element.id == product.id);
+    products[index] = product;
 
     //MI FORMA
 
@@ -84,22 +84,22 @@ class ProductService extends ChangeNotifier{
     final decodedData = json.decode(resp.body);
 
     product.id = decodedData['name'];
-    this.products.add(product);
+    products.add(product);
 
     return "";
   }
 
   void updateSelectedProductImage(String path){
-    this.selectedProduct.picture = path;
-    this.newPictureFile = File.fromUri(Uri(path: path));
+    selectedProduct.picture = path;
+    newPictureFile = File.fromUri(Uri(path: path));
 
     notifyListeners();
   }
 
   Future<String?> uploadImage()async{
-    if(this.newPictureFile == null) return null;
+    if(newPictureFile == null) return null;
 
-    this.isSaving = true;
+    isSaving = true;
     notifyListeners();
 
     final url = Uri.parse("https://api.cloudinary.com/v1_1/dvtliykyw/image/upload?upload_preset=eictoljn");

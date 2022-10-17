@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/models.dart';
 
 class ProductFormProvider extends ChangeNotifier{
-  GlobalKey<FormState> formKey = new GlobalKey<FormState>();
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   Product product;
 
@@ -11,12 +11,15 @@ class ProductFormProvider extends ChangeNotifier{
 
   updateAvailability(bool value){
     print(value);
-    this.product.available = value;
+    product.available = value;
     notifyListeners();
   }
 
   bool isValidForm(){
 
+    print( product.name );
+    print( product.price );
+    print( product.available );
 
     return formKey.currentState?.validate() ?? false;
   }
