@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Productos App',
-      initialRoute: 'check',
+      initialRoute: 'login',
       routes: {
         'check': (_) => CheckAuthScreen(),
         'login': (_) => LoginScreen(),
