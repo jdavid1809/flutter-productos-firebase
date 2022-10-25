@@ -15,11 +15,11 @@ class CheckAuthScreen extends StatelessWidget {
       body: Center(
          child: FutureBuilder(
            future: authService.readToken(),
-           builder: (BuildContext context, AsyncSnapshot snapshot) {
+           builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
             if (!snapshot.hasData) {
               return Text('Espere');
             }
-            if (snapshot == '') {
+            if (snapshot.data == '') {
               Future.microtask(() {
                 Navigator.pushReplacement(
                   context,

@@ -34,17 +34,18 @@ class MyApp extends StatelessWidget {
         'home': (_) => HomeScreen(),
         'product': (_) => ProductScreen(),
       },
-  theme: ThemeData.light().copyWith(
-    scaffoldBackgroundColor: Colors.grey[300],
-    appBarTheme: AppBarTheme(
-      elevation: 0,
-      color: Colors.indigo,
-    ),
-    floatingActionButtonTheme: FloatingActionButtonThemeData(
-      backgroundColor: Colors.indigo,
-      elevation: 0,
-    ),
-  ),
+      scaffoldMessengerKey: NotificationsService.messengerKey,
+      theme: ThemeData.light().copyWith(
+        scaffoldBackgroundColor: Colors.grey[300],
+        appBarTheme: AppBarTheme(
+          elevation: 0,
+          color: Colors.indigo,
+        ),
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: Colors.indigo,
+          elevation: 0,
+        ),
+      ),
     );
   }
 }
