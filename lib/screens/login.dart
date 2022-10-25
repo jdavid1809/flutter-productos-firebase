@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:productosapp/ui/inputDecorations.dart';
 import 'package:productosapp/widgets/widgets.dart';
 
+import '../services/services.dart';
+
 class LoginScreen extends StatelessWidget {
    
   const LoginScreen({Key? key}) : super(key: key);
@@ -98,7 +100,7 @@ class _LoginForm extends StatelessWidget {
                 labelText: "Password",
                 prefixIcon: Icons.security,
               ),
-              onChanged: (value) => loginForm.passport = value,
+              onChanged: (value) => loginForm.password = value,
               validator: (value) {
                 return (value != null && value.length >=6)
                   ? null
@@ -113,15 +115,20 @@ class _LoginForm extends StatelessWidget {
                color: Colors.deepPurple,
               onPressed: loginForm.isLoading ? null :  () async {
                 FocusScope.of(context).unfocus();
+                final authService  = Provider.of<AuthService>(context, listen: false);
+
                 if(!loginForm.isValidForm()) return;
 
                 loginForm.isLoading = true;
 
-                await Future.delayed(const Duration(seconds: 2));
-
-                loginForm.isLoading = false;
-
-                Navigator.pushNamed(context, "home");
+                //Validacion del login
+                final String? errorMessage = await authService.loginUser(loginForm.email, loginForm.password);
+                if (errorMessage == null) {
+                  Navigator.pushReplacementNamed(context, 'home');
+                }else{
+                  print(errorMessage);
+                  loginForm.isLoading = false;
+                }
               },
                child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 15),

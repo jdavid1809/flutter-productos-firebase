@@ -12,7 +12,8 @@ class AppState extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_)=> ProductService(), )
+        ChangeNotifierProvider(create: (_)=> AuthService(), ),
+        ChangeNotifierProvider(create: (_)=> ProductService(), ),
       ],
       child: MyApp(),
     );
