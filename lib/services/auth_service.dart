@@ -60,5 +60,9 @@ class AuthService extends ChangeNotifier{
     return;
   }
 
+  Future<String> readToken()async{
+    return await storage.read(key: 'token') ?? '';
+  }
+
 
 }
